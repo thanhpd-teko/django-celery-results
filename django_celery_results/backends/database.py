@@ -22,10 +22,8 @@ class DatabaseBackend(BaseDictBackend):
         })
 
         task_name = getattr(request, 'task', None) if request else None
-        task_args = getattr(request,
-                            'argsrepr', getattr(request, 'args', None))
-        task_kwargs = getattr(request,
-                              'kwargsrepr', getattr(request, 'kwargs', None))
+        task_args = getattr(request, 'argsrepr') or getattr(request, 'args', None)
+        task_kwargs = getattr(request, 'kwargsrepr') or getattr(request, 'kwargs', None)
 
         self.TaskModel._default_manager.store_result(
             content_type, content_encoding,
